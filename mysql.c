@@ -35,8 +35,7 @@ void fetch_and_print_reselts(MYSQL *con){
         }
   }
 
-  void init_connection(){
-    MYSQL *con = mysql_init(NULL);
+  void init_connection(MYSQL *con){
     if (con == NULL) 
       {
         fprintf(stderr, "%s\n", mysql_error(con));
@@ -46,7 +45,14 @@ void fetch_and_print_reselts(MYSQL *con){
 
 int main(int argc, char **argv)
 {
+  /* holds our sql query*/
+
   char query[QUERYLENGTH]; 
+
+  MYSQL *con = mysql_init(NULL);
+
+  /* Initialise connection object*/
+  init_connection(con);
 
   if (mysql_real_connect(con, "localhost", "root", "root", 
           NULL, 0, NULL, 0) == NULL) 
