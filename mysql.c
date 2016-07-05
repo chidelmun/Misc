@@ -35,18 +35,18 @@ void fetch_and_print_reselts(MYSQL *con){
         }
   }
 
+  void init_connection(){
+    MYSQL *con = mysql_init(NULL);
+    if (con == NULL) 
+      {
+        fprintf(stderr, "%s\n", mysql_error(con));
+        exit(1);
+      }
+   }
 
 int main(int argc, char **argv)
 {
-  MYSQL *con = mysql_init(NULL);
-  char query[QUERYLENGTH];
-
-
-  if (con == NULL) 
-  {
-      fprintf(stderr, "%s\n", mysql_error(con));
-      exit(1);
-  }
+  char query[QUERYLENGTH]; 
 
   if (mysql_real_connect(con, "localhost", "root", "root", 
           NULL, 0, NULL, 0) == NULL) 
