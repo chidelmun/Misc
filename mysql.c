@@ -13,6 +13,28 @@ void finish_with_error(MYSQL *con)
   exit(1);        
 }
 
+void fetch_and_print_reselts(MYSQL *con){
+  MYSQL_RES *result = mysql_store_result(con);
+  
+    if (result == NULL) 
+      {
+        finish_with_error(con);
+      }
+
+      int num_fields = mysql_num_fields(result);
+
+      MYSQL_ROW row;
+          
+      while ((row = mysql_fetch_row(result))) 
+        { 
+          for(int i = 0; i < num_fields; i++) 
+            { 
+              printf("%s ", row[i] ? row[i] : "NULL"); 
+            } 
+              printf("\n"); 
+        }
+  }
+
 
 int main(int argc, char **argv)
 {
@@ -43,25 +65,8 @@ int main(int argc, char **argv)
           exit(1);
         }
         printf("%s\n", query);
-          MYSQL_RES *result = mysql_store_result(con);
-  
-          if (result == NULL) 
-          {
-              finish_with_error(con);
-          }
-
-          int num_fields = mysql_num_fields(result);
-
-          MYSQL_ROW row;
-          
-          while ((row = mysql_fetch_row(result))) 
-          { 
-              for(int i = 0; i < num_fields; i++) 
-              { 
-                  printf("%s ", row[i] ? row[i] : "NULL"); 
-              } 
-                  printf("\n"); 
-          }
+        
+        fetch_and_print_reselts(con);
     }
   mysql_close(con);
   exit(0);
