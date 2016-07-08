@@ -11,11 +11,6 @@
 
 int main(int argc, char **argv)
 {
-  // pcre2_code *re;
-  // PCRE2_SPTR pattern;     /* PCRE2_SPTR is a pointer to unsigned code units of */
-  // PCRE2_SPTR subject;     /* the appropriate width (8, 16, or 32 bits). */
-  // PCRE2_SPTR name_table;
-
   MYSQL *con = mysql_init(NULL);
   char query[QUERYLENGTH];
 
@@ -43,6 +38,25 @@ int main(int argc, char **argv)
           exit(1);
         }
         printf("%s\n", query);
+          MYSQL_RES *result = mysql_store_result(con);
+  
+          if (result == NULL) 
+          {
+              finish_with_error(con);
+          }
+
+          int num_fields = mysql_num_fields(result);
+
+          MYSQL_ROW row;
+          
+          while ((row = mysql_fetch_row(result))) 
+          { 
+              for(int i = 0; i < num_fields; i++) 
+              { 
+                  printf("%s ", row[i] ? row[i] : "NULL"); 
+              } 
+                  printf("\n"); 
+          }
     }
   mysql_close(con);
   exit(0);
