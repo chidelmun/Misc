@@ -10,9 +10,15 @@
 
 
 int main(int argc, char **argv)
-{  
+{
+  pcre2_code *re;
+  PCRE2_SPTR pattern;     /* PCRE2_SPTR is a pointer to unsigned code units of */
+  PCRE2_SPTR subject;     /* the appropriate width (8, 16, or 32 bits). */
+  PCRE2_SPTR name_table;
+
   MYSQL *con = mysql_init(NULL);
   char query[QUERYLENGTH];
+
 
   if (con == NULL) 
   {
