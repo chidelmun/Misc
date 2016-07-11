@@ -1,8 +1,12 @@
+
+#define QUERYLENGTH 100
+#define PCRE2_CODE_UNIT_WIDTH 8
 #include <my_global.h>
 #include <mysql.h>
 #include <string.h>
+#include <pcre2.h>
 
-#define QUERYLENGTH 100
+
 
 
 int main(int argc, char **argv)
