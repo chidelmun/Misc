@@ -24,6 +24,16 @@ int main(int argc, char **argv)
       exit(1);
   }  
 
+  while(fgets(query, QUERYLENGTH , stdin) != NULL)
+    {
+       if (mysql_query(con, query)) 
+        {
+          fprintf(stderr, "%s\n", mysql_error(con));
+          mysql_close(con);
+          exit(1);
+        }
+        printf("%s\n", query);
+    }
   mysql_close(con);
   exit(0);
 }
