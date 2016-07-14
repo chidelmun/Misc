@@ -29,8 +29,8 @@ int main(int argc, char **argv)
        if (mysql_query(con, query)) 
         {
           fprintf(stderr, "%s\n", mysql_error(con));
-          // mysql_close(con);
-          // exit(1);
+          mysql_close(con);
+          exit(1);
         }
         printf("%s\n", query);
     }
